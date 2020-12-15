@@ -1,5 +1,6 @@
-LABEL Maintainer="ichbinrodolf"
 FROM golang:1.14-buster AS easy-novnc-build
+
+LABEL Maintainer="ichbinrodolf"
 
 WORKDIR /src
 RUN go mod init build && \
@@ -8,8 +9,8 @@ RUN go mod init build && \
 
 FROM ubuntu:groovy
 
-ENV SURGE_FILE=surge-0.2.0-beta
-ENV SURGE_URL_DIR=https://github.com/rule110-io/surge/releases/download/v0.2.0-beta
+ENV SURGE_FILE=surge-0.2.1-beta
+ENV SURGE_URL_DIR=https://github.com/rule110-io/surge/releases/download/v0.2.1-beta
 ENV PUID=1000
 ENV PGID=1000
 # Warning as also part of a file
@@ -31,7 +32,7 @@ RUN apt-get update -y && \
     apt-get install -y --no-install-recommends libgtk3.0-cil libwebkit2gtk-4.0-37 && \
     rm -rf /var/lib/apt/lists
 
-RUN wget $SURGE_URL_DIR/$SURGE_FILE.linux.zip && unzip $SURGE_FILE.linux.zip && rm $SURGE_FILE.linux.zip && mv $SURGE_FILE /usr/local/bin/surge
+RUN wget $SURGE_URL_DIR/$SURGE_FILE.linux.zip && unzip $SURGE_FILE.linux.zip && rm $SURGE_FILE.linux.zip && mv surge /usr/local/bin/surge
 
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 
