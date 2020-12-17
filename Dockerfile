@@ -41,12 +41,13 @@ COPY menu.xml /etc/xdg/openbox/
 RUN chmod 644 /etc/xdg/openbox/menu.xml
 
 COPY supervisord.conf /etc/
+COPY start.sh /
+
 EXPOSE 8080
 
 RUN groupadd --gid $PGID app && \
-    useradd --home-dir /data --shell /bin/bash --uid $PUID --gid $PGID app && \
-    mkdir -p /data
+    useradd --home-dir /data --shell /bin/bash --uid $PUID --gid $PGID app 
 
 VOLUME /data
 
-CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
+CMD ["bash", "-c", "/start.sh"]
