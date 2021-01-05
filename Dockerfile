@@ -9,8 +9,9 @@ RUN go mod init build && \
 
 FROM ubuntu:groovy
 
-ENV SURGE_FILE=surge-0.2.1-beta
-ENV SURGE_URL_DIR=https://github.com/rule110-io/surge/releases/download/v0.2.1-beta
+ENV SURGE_VERSION=0.3.0-beta
+ENV SURGE_FILE=surge-$SURGE_VERSION
+ENV SURGE_URL_DIR=https://github.com/rule110-io/surge/releases/download/v$SURGE_VERSION
 ENV PUID=1000
 ENV PGID=1000
 # Warning as also part of a file
